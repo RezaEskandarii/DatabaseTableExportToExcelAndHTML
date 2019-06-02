@@ -1,5 +1,7 @@
 package export;
-
+/**
+   @create html files dynamically
+*/
 public class HTMLBuilder {
     public static final String   NEXT_LINE       = "\n";
     public static final String   TAB             = "\t";
