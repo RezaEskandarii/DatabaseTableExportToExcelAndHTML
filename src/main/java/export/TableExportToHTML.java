@@ -5,11 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
+/**
+@export data ti html file
+*/
 public class TableExportToHTML extends TableExport {
 
     HTMLBuilder htmlBuilder;
+    //excel cell generator
     protected static final String TAB = "\t";
+    
+    //set bootstrap framework assets to html file
     public TableExportToHTML() {
         this.htmlBuilder = new HTMLBuilder();
         htmlBuilder.startHtmlDocument();
@@ -50,6 +55,7 @@ public class TableExportToHTML extends TableExport {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(sqlQuery);
+            //set utf 8 supports
             statement.executeQuery("SET NAMES 'UTF8'");
             statement.executeQuery("SET CHARACTER SET 'UTF8'");
 
@@ -63,10 +69,12 @@ public class TableExportToHTML extends TableExport {
         try {
             for (int i = 1; i <= columnsCount; i++) {
                 assert metaData != null;
+                //add html table headers title
                 htmlBuilder.setBody("<td>"+metaData.getColumnLabel(i)+"</td>");
             }
             htmlBuilder.setBody("</tr></thead>");
             htmlBuilder.setBody("<tbody>");
+            //set html table body
             while (resultSet.next()) {
                 htmlBuilder.setBody("<tr>");
                 for (int i = 1; i < columnsCount + 1; i++) {
