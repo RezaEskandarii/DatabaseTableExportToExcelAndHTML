@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class TableExportToExcel extends TableExport {
 
-
+    //export database table data to excel file
     @Override
     public void export() {
 
@@ -34,11 +34,14 @@ public class TableExportToExcel extends TableExport {
 
             resultSet = statement.executeQuery();
             metaData = resultSet.getMetaData();
+            
+            //Assigning the number of Excel file columns
             columnsCount = metaData.getColumnCount();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
+            //write excel file headers
             for (int i = 1; i < columnsCount + 1; i++) {
                 assert metaData != null;
                 assert fileWriter != null;
@@ -49,6 +52,8 @@ public class TableExportToExcel extends TableExport {
             fileWriter.append(NEXT_LINE);
             fileWriter.flush();
             assert resultSet != null;
+            
+            //write excel file body
             while (resultSet.next()) {
                 for (int i = 1; i <= columnsCount; i++) {
                     count++;
